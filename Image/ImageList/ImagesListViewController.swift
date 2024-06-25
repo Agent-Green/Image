@@ -8,6 +8,8 @@
 import UIKit
 
 class ImagesListViewController: UIViewController {
+    
+    private let photosName: [String] = Array(0..<20).map{ "\($0)" }
 
     @IBOutlet private var tableView: UITableView!
     
@@ -28,9 +30,6 @@ class ImagesListViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         
     }
-    
-    private let photosName: [String] = Array(0..<20).map{ "\($0)" }
-
     
 }
 
@@ -55,7 +54,7 @@ extension ImagesListViewController: UITableViewDataSource {
 }
 
 extension ImagesListViewController {
-    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
             return
         }
