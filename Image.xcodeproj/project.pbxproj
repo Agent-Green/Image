@@ -14,6 +14,7 @@
 		AA66E9E02C1DE26600EAB189 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA66E9DF2C1DE26600EAB189 /* Assets.xcassets */; };
 		AA66E9E32C1DE26600EAB189 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA66E9E12C1DE26600EAB189 /* LaunchScreen.storyboard */; };
 		AA66EA0B2C1F1E6000EAB189 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA66EA0A2C1F1E6000EAB189 /* ImagesListCell.swift */; };
+		AA66EA0E2C4A4CD300EAB189 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA66EA0D2C4A4CD300EAB189 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		AA66E9E22C1DE26600EAB189 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA66E9E42C1DE26600EAB189 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA66EA0A2C1F1E6000EAB189 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		AA66EA0D2C4A4CD300EAB189 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			children = (
 				AA66EA0A2C1F1E6000EAB189 /* ImagesListCell.swift */,
 				AA66E9DA2C1DE26500EAB189 /* ImagesListViewController.swift */,
+				AA66EA0D2C4A4CD300EAB189 /* ProfileViewController.swift */,
 			);
 			path = ImageList;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			files = (
 				AA66E9DB2C1DE26500EAB189 /* ImagesListViewController.swift in Sources */,
 				AA66EA0B2C1F1E6000EAB189 /* ImagesListCell.swift in Sources */,
+				AA66EA0E2C4A4CD300EAB189 /* ProfileViewController.swift in Sources */,
 				AA66E9D72C1DE26500EAB189 /* AppDelegate.swift in Sources */,
 				AA66E9D92C1DE26500EAB189 /* SceneDelegate.swift in Sources */,
 			);
