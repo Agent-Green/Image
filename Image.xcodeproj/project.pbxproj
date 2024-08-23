@@ -62,15 +62,15 @@
 		AA66E9D52C1DE26500EAB189 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				AA66EA0D2C4A4CD300EAB189 /* ProfileViewController.swift */,
 				AA66EA0C2C1F1E8C00EAB189 /* ImageList */,
+				AA66EA0D2C4A4CD300EAB189 /* ProfileViewController.swift */,
+				AA66EA0F2C53DD2400EAB189 /* SingleImageViewController.swift */,
 				AA66E9D62C1DE26500EAB189 /* AppDelegate.swift */,
 				AA66E9D82C1DE26500EAB189 /* SceneDelegate.swift */,
 				AA66E9DC2C1DE26500EAB189 /* Main.storyboard */,
 				AA66E9DF2C1DE26600EAB189 /* Assets.xcassets */,
 				AA66E9E12C1DE26600EAB189 /* LaunchScreen.storyboard */,
 				AA66E9E42C1DE26600EAB189 /* Info.plist */,
-				AA66EA0F2C53DD2400EAB189 /* SingleImageViewController.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
