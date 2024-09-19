@@ -15,36 +15,42 @@ final class OAuth2Service {
     
     private init() {}
     
-    func makeOAuthTokenRequest(code: String) -> URLRequest? {
+     func makeOAuthTokenRequest(code: String) -> URLRequest? {
         
-        guard let baseURL = URL(string: "https://unsplash.com") else {fatalError("Incorrect URL")}
+        guard let baseURL = URL(string: "https://unsplash.com") else {
+            print("Incorrect URL")
+            fatalError("Incorrect URL")
+        }
         
         guard let url = URL(
-             string: "/oauth/token"
-             + "?client_id=\(Constants.accessKey)"
-             + "&&client_secret=\(Constants.secretKey)"
-             + "&&redirect_uri=\(Constants.redirectURI)"
-             + "&&code=\(code)"
-             + "&&grant_type=authorization_code",
-             relativeTo: baseURL
+            string: "/oauth/token"
+            + "?client_id=\(Constants.accessKey)"
+            + "&&client_secret=\(Constants.secretKey)"
+            + "&&redirect_uri=\(Constants.redirectURI)"
+            + "&&code=\(code)"
+            + "&&grant_type=authorization_code",
+            relativeTo: baseURL
         ) else {fatalError("Incorrect URL")}
         
-         var request = URLRequest(url: url)
-         request.httpMethod = "POST"
-         return request
-     }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        return request
+    }
     
-    func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void ) {
+     func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void ) {
         
         guard let request = makeOAuthTokenRequest(code: code) else {
+            print("Invalid request")
             fatalError("Invalid request")
         }
-        URLSession.shared.data(for: request) { result in
+        URLSession.shared.data(for: request) {[weak self] result in
             switch result {
             case .success(let data):
                 do {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(OAuthTokenResponseBody.self, from: data)
+                    
+                    guard let self  = self else {return}
                     self.storage.token = response.accessToken
                     
                     completion(.success(response.accessToken))
