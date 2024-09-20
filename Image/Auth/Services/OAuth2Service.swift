@@ -15,7 +15,7 @@ final class OAuth2Service {
     
     private init() {}
     
-     func makeOAuthTokenRequest(code: String) -> URLRequest? {
+    private func makeOAuthTokenRequest(code: String) -> URLRequest? {
         
         guard let baseURL = URL(string: "https://unsplash.com") else {
             print("Incorrect URL")
@@ -30,14 +30,17 @@ final class OAuth2Service {
             + "&&code=\(code)"
             + "&&grant_type=authorization_code",
             relativeTo: baseURL
-        ) else {fatalError("Incorrect URL")}
+        ) else {
+            print("Incorrect URL")
+            fatalError("Incorrect URL")
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         return request
     }
     
-     func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void ) {
+    func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void ) {
         
         guard let request = makeOAuthTokenRequest(code: code) else {
             print("Invalid request")
@@ -50,7 +53,7 @@ final class OAuth2Service {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(OAuthTokenResponseBody.self, from: data)
                     
-                    guard let self  = self else {return}
+                    guard let self else { return }
                     self.storage.token = response.accessToken
                     
                     completion(.success(response.accessToken))
