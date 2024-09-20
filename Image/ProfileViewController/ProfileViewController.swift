@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProfileViewController: UIViewController{
+final class ProfileViewController: UIViewController{
     
     private let profileImage : UIImageView = {
         var profileImage = UIImage(named: "profilePic")
@@ -42,7 +42,7 @@ class ProfileViewController: UIViewController{
     
     private let exitButton : UIButton = {
         let button : UIButton = UIButton.systemButton(
-            with: UIImage(named: "exitButton1")!,
+            with: UIImage(named: "exitButton1") ?? UIImage(),
             target: ProfileViewController.self,
             action: #selector(Self.didTapExitButton))
         button.tintColor = .ypRed

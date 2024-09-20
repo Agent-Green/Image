@@ -80,6 +80,7 @@ extension ImagesListViewController {
         
         cell.cellImage.image = image
         cell.dataLabel.text = dateFormatter.string(from: Date())
+        cell.selectionStyle = .none
         
         let isLiked = indexPath.row % 2 == 0
         let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
