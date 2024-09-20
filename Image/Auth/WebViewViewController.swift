@@ -57,7 +57,7 @@ final class WebViewViewController : UIViewController {
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
     }
-
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(WKWebView.estimatedProgress) {
             updateProgress()
@@ -65,42 +65,41 @@ final class WebViewViewController : UIViewController {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
-
+    
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
 }
 
-enum WebViewConstants {
-    fileprivate static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-}
-
-
 extension WebViewViewController : WKNavigationDelegate {
     
-        private func loadAuthView() {
-            guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
-                return
-            }
+    enum WebViewConstants {
+        fileprivate static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+    }
     
-            urlComponents.queryItems = [
-                URLQueryItem(name: "client_id", value: Constants.accessKey),
-                URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
-                URLQueryItem(name: "response_type", value: "code"),
-                URLQueryItem(name: "scope", value: Constants.accessScope)
-            ]
-    
-            guard let url = urlComponents.url else {
-                return
-            }
-    
-            let request = URLRequest(url: url)
-            webView.load(request)
+    private func loadAuthView() {
+        guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
+            return
         }
         
+        urlComponents.queryItems = [
+            URLQueryItem(name: "client_id", value: Constants.accessKey),
+            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
+            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "scope", value: Constants.accessScope)
+        ]
+        
+        guard let url = urlComponents.url else {
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        webView.load(request)
+    }
     
-     func webView(
+    
+    func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
