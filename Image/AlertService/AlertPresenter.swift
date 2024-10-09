@@ -5,15 +5,7 @@
 //  Created by Алиса  Грищенкова on 04.10.2024.
 //
 
-import Foundation
 import UIKit
-
-struct AlertModel {
-    let title: String
-    let message: String
-    let buttonTitle: String
-    let buttonAction: ((UIAlertAction) -> Void)?
-}
 
 class AlertPresenter {
     private weak var viewController: UIViewController?
