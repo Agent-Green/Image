@@ -24,6 +24,7 @@
 		AA6A24962C9AD2DC00C9E5E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6A24952C9AD2DC00C9E5E2 /* SplashViewController.swift */; };
 		AA6A24982C9ADABD00C9E5E2 /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6A24972C9ADABD00C9E5E2 /* OAuthTokenResponseBody.swift */; };
 		AA6B28CA2CB67984000302F1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6B28C92CB67984000302F1 /* TabBarController.swift */; };
+		AA6B28D02CB6D850000302F1 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6B28CF2CB6D850000302F1 /* AlertModel.swift */; };
 		AA6E4DAA2C8866F80041A605 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E4DA92C8866F80041A605 /* AuthViewController.swift */; };
 		AA6E4DAC2C8887AF0041A605 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E4DAB2C8887AF0041A605 /* WebViewViewController.swift */; };
 		AA6E4DB02C9055B50041A605 /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E4DAF2C9055B50041A605 /* OAuth2Service.swift */; };
@@ -53,6 +54,7 @@
 		AA6A24952C9AD2DC00C9E5E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		AA6A24972C9ADABD00C9E5E2 /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
 		AA6B28C92CB67984000302F1 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		AA6B28CF2CB6D850000302F1 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		AA6E4DA92C8866F80041A605 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		AA6E4DAB2C8887AF0041A605 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		AA6E4DAF2C9055B50041A605 /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		AA66E9D52C1DE26500EAB189 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				AA6B28CE2CB6D83A000302F1 /* AlertService */,
 				AA6B28C82CB67979000302F1 /* TabBarController */,
 				AA6A24942C9AD2CD00C9E5E2 /* SplashViewController */,
 				AA6E4DA82C8866D00041A605 /* SingleImageViewController. */,
@@ -107,7 +110,6 @@
 				AA66E9DF2C1DE26600EAB189 /* Assets.xcassets */,
 				AA66E9E12C1DE26600EAB189 /* LaunchScreen.storyboard */,
 				AA66E9E42C1DE26600EAB189 /* Info.plist */,
-				AA6A221A2CB0316000727BBE /* AlertPresenter.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -148,13 +150,22 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
+		AA6B28CE2CB6D83A000302F1 /* AlertService */ = {
+			isa = PBXGroup;
+			children = (
+				AA6B28CF2CB6D850000302F1 /* AlertModel.swift */,
+				AA6A221A2CB0316000727BBE /* AlertPresenter.swift */,
+			);
+			path = AlertService;
+			sourceTree = "<group>";
+		};
 		AA6E4DA62C8866A50041A605 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
 				AA6E4DA92C8866F80041A605 /* AuthViewController.swift */,
 				AA6E4DAB2C8887AF0041A605 /* WebViewViewController.swift */,
-				AA6A24992C9ADAEC00C9E5E2 /* Services */,
 				AA6A22142CB014C900727BBE /* UIBlockingProgressHUD.swift */,
+				AA6A24992C9ADAEC00C9E5E2 /* Services */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -266,6 +277,7 @@
 				AA6A221B2CB0316000727BBE /* AlertPresenter.swift in Sources */,
 				AA66E9D72C1DE26500EAB189 /* AppDelegate.swift in Sources */,
 				AA6A22192CB0277A00727BBE /* ProfileImageService.swift in Sources */,
+				AA6B28D02CB6D850000302F1 /* AlertModel.swift in Sources */,
 				AA6E4DAA2C8866F80041A605 /* AuthViewController.swift in Sources */,
 				AA6A24962C9AD2DC00C9E5E2 /* SplashViewController.swift in Sources */,
 				AA6B28CA2CB67984000302F1 /* TabBarController.swift in Sources */,

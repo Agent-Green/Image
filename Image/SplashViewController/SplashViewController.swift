@@ -14,7 +14,6 @@ final class SplashViewController : UIViewController{
     
     private let oAuth2Storage = OAuth2TokenStorage()
     private let oAuth2Service = OAuth2Service.shared
-//  private let showAuthenticationSegueIdentifier = "ShowAuth"
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var alertPresenter: AlertPresenter?
@@ -120,12 +119,12 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success(let profile):
                 ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in }
                 self.switchToTabBarController()
-                UIBlockingProgressHUD.dismiss()
                 
             case .failure:
-                UIBlockingProgressHUD.dismiss()
                 showAlert()
             }
+            UIBlockingProgressHUD.dismiss()
+
         }
     }
     
