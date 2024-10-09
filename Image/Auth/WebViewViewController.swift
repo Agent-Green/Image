@@ -16,46 +16,87 @@ protocol WebViewViewControllerDelegate: AnyObject {
 
 final class WebViewViewController : UIViewController {
     
-    @IBOutlet var webView: WKWebView!
-    
-    @IBOutlet var progressView: UIProgressView!
-    
+    private var estimatedProgressObservation: NSKeyValueObservation?
     weak var delegate: WebViewViewControllerDelegate?
+
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        webView.addObserver(
-            self,
-            forKeyPath: #keyPath(WKWebView.estimatedProgress),
-            context: nil)
-        updateProgress()
-    }
+    private let webView: WKWebView = {
+        let webView = WKWebView()
+        return webView
+    }()
+    
+    private let progressView: UIProgressView = {
+        let progress = UIProgressView()
+        progress.progressTintColor = .ypBlack
+        return progress
+    }()
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureView()
-        loadAuthView()
         webView.navigationDelegate = self
+
+        loadAuthView()
+        observerSetup()
+        configureView()
+
+    }
+    
+    private func loadAuthView() {
+        guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
+            print("error in getting url string")
+            return
+        }
+        urlComponents.queryItems = [
+            URLQueryItem(name: "client_id", value: Constants.accessKey),
+            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
+            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "scope", value: Constants.accessScope)
+        ]
         
+        guard let url = urlComponents.url else {
+            print("error in getting url components")
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        webView.removeObserver(
-            self,
-            forKeyPath:#keyPath(WKWebView.estimatedProgress),
-            context: nil)
-    }
     
+    
+    private func observerSetup() {
+        estimatedProgressObservation = webView.observe(
+            \.estimatedProgress,
+             options: [],
+             changeHandler: { [weak self] _, _ in
+                 guard let self = self else { return }
+                 self.updateProgress()
+             })
+    }
+
     private func configureView(){
-        webView.backgroundColor = .ypWhite
-        webView.translatesAutoresizingMaskIntoConstraints = false
+        
+            view.backgroundColor = .white
+            [webView,
+             progressView].forEach{
+                $0.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview($0)
+            }
+        
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            progressView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        ])
+        
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -77,28 +118,7 @@ extension WebViewViewController : WKNavigationDelegate {
     enum WebViewConstants {
         fileprivate static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
     }
-    
-    private func loadAuthView() {
-        guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
-            return
-        }
-        
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: Constants.accessKey),
-            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
-            URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: Constants.accessScope)
-        ]
-        
-        guard let url = urlComponents.url else {
-            return
-        }
-        
-        let request = URLRequest(url: url)
-        webView.load(request)
-    }
-    
-    
+
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,

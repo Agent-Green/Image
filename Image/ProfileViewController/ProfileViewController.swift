@@ -7,13 +7,20 @@
 
 import Foundation
 import UIKit
+import Kingfisher
+import WebKit
 
 final class ProfileViewController: UIViewController{
     
+    private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
     private let profileImage : UIImageView = {
-        var profileImage = UIImage(named: "profilePic")
-        let imageView = UIImageView(image: profileImage)
-        return imageView
+        let img = UIImageView()
+        img.image = UIImage(named: "Userpic")
+        img.layer.cornerRadius = 35
+        img.clipsToBounds = true
+        return img
     }()
     
     private let nameLabel : UILabel = {
@@ -55,6 +62,52 @@ final class ProfileViewController: UIViewController{
         super.viewDidLoad()
         
         configureView()
+        updateAvatar()
+        
+        updateProfileDetails(profile: profileService.profile)
+        
+        setupObserver()
+    }
+    
+    func updateProfileDetails(profile: Profile?) {
+        guard let profile = profile else {
+            return
+        }
+        self.nameLabel.text = profile.name
+        self.descriptionLabel.text = profile.loginName
+        self.textLabel.text = profile.bio
+    }
+    
+    private func setupObserver() {
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(forName: ProfileImageService.didChangeNotification,
+                         object: nil, // nil чтобы получать уведомление от любых источников
+                         queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.profileImageURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        let processor = RoundCornerImageProcessor(cornerRadius: 20)
+        profileImage.kf.indicatorType = .activity
+        profileImage.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "picStub"),
+            options: [.processor(processor)]) { result in
+                switch result {
+                case .success(let value):
+                    print(value.image)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
     }
     
     private func addSubviewAndMaskFalse(profileView : UIView){
@@ -94,7 +147,7 @@ final class ProfileViewController: UIViewController{
             exitButton.widthAnchor.constraint(equalToConstant: 24),])
         
     }
-    @objc private func didTapExitButton() {}
     
+    @objc private func didTapExitButton() {
+    }
 }
-
